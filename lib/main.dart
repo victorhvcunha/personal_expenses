@@ -90,6 +90,12 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((transaction) => transaction.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Chart(_recentTransactions),
 
           // List transactions
-          TransactionList(_userTransactions),
+          TransactionList(_userTransactions, _deleteTransaction),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
