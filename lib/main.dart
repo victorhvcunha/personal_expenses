@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.red,
         fontFamily: 'PTSansNarrow',
         textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
-                    fontFamily: 'PTSansNarrow',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+              title: TextStyle(
+                  fontFamily: 'PTSansNarrow',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 title: TextStyle(
@@ -43,24 +43,39 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(
-        id: 't1', title: 'New shoes', amount: 20, date: DateTime.now().subtract(Duration(days: 1))),
+      id: 't1',
+      title: 'New shoes',
+      amount: 20,
+      date: DateTime.now().subtract(Duration(days: 1)),
+    ),
     Transaction(
-        id: 't2', title: 'New clothes', amount: 50, date: DateTime.now().subtract(Duration(days: 2))),
-    Transaction(id: 't3', title: 'New hat', amount: 10, date: DateTime.now()),
+      id: 't2',
+      title: 'New clothes',
+      amount: 50,
+      date: DateTime.now().subtract(Duration(days: 2)),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'New hat',
+      amount: 10,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((transaction) {
-      return transaction.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+      return transaction.date
+          .isAfter(DateTime.now().subtract(Duration(days: 7)));
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime date) {
     final newTx = Transaction(
-        title: title,
-        amount: amount,
-        date: DateTime.now(),
-        id: DateTime.now().toString());
+      title: title,
+      amount: amount,
+      date: date == null ? DateTime.now() : date,
+      id: DateTime.now().toString(),
+    );
 
     setState(() {
       _userTransactions.add(newTx);
